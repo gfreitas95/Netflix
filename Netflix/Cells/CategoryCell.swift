@@ -10,12 +10,12 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private let cellId = "movieCell"
+    let cellId = "movieCell"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupViews()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -32,13 +32,24 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
        return label
     }()
     
+    let imageView: UIImageView = {
+        
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "imageView")
+        imageView.contentMode = .scaleToFill
+        imageView.layer.cornerRadius = 16
+        imageView.layer.masksToBounds = true
+        
+       return imageView
+    }()
+    
     let moviesCollectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .yellow
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
        return collectionView
@@ -53,13 +64,13 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
        return view
     }()
     
-    func setupViews() {
+    func setupLayout() {
         
         moviesCollectionView.delegate = self
         moviesCollectionView.dataSource = self
         moviesCollectionView.register(movieCell.self, forCellWithReuseIdentifier: cellId)
         
-        backgroundColor = .clear
+        backgroundColor = .red
         addSubview(categoryLabel)
         addSubview(dividerLineView)
         addSubview(moviesCollectionView)
@@ -92,33 +103,3 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDelegate, UICollection
     }
 }
 
-class movieCell: UICollectionViewCell {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupConstrainst()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    let imageView: UIImageView = {
-        
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "movie")
-        imageView.contentMode = .scaleToFill
-        imageView.layer.cornerRadius = 200
-        imageView.layer.masksToBounds = true
-        
-       return imageView
-    }()
-    
-    func setupConstrainst() {
-        
-        addSubview(imageView)
-        
-        imageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-    }
-}
