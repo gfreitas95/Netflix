@@ -24,34 +24,37 @@ class HomeViewController: UIViewController {
         tabBarViewController()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - NavigationViewController
     
     func navigationController() {
         
         let logoButton = UIButton(type: .system)
-//        logoButton.setImage(#imageLiteral(resourceName: "logo").withRenderingMode(.alwaysOriginal), for: .normal)
-        logoButton.setTitle("logo", for: .normal)
-        logoButton.setTitleColor(.white, for: .normal)
+        logoButton.setImage(#imageLiteral(resourceName: "logo").withRenderingMode(.alwaysOriginal), for: .normal)
         logoButton.contentMode = .scaleAspectFit
-        logoButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        logoButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        logoButton.translatesAutoresizingMaskIntoConstraints = false
         
         let myListButton = UIButton(type: .system)
         myListButton.setTitle("My List", for: .normal)
         myListButton.setTitleColor(.white, for: .normal)
         myListButton.contentMode = .scaleAspectFit
-        myListButton.frame = CGRect(x: 0, y: 0, width: 130, height: 150)
+        myListButton.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
         
         let moviesButton = UIButton(type: .system)
         moviesButton.setTitle("Movies", for: .normal)
         moviesButton.setTitleColor(.white, for: .normal)
         moviesButton.contentMode = .scaleAspectFit
-        moviesButton.frame = CGRect(x: 0, y: 0, width: 130, height: 150)
+        moviesButton.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
         
         let tvShowsButton = UIButton(type: .system)
         tvShowsButton.setTitle("Tv Shows", for: .normal)
         tvShowsButton.setTitleColor(.white, for: .normal)
         tvShowsButton.contentMode = .scaleAspectFit
-        tvShowsButton.frame = CGRect(x: 0, y: 0, width: 130, height: 150)
+        tvShowsButton.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
         
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = true
@@ -67,7 +70,7 @@ class HomeViewController: UIViewController {
     let imageView: UIImageView = {
         
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "irishman")
+        imageView.image = #imageLiteral(resourceName: "movie_16")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -116,6 +119,8 @@ class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: "MovieCell")
@@ -159,18 +164,18 @@ class HomeViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor = .red
         
         view.addSubview(imageView)
         view.addSubview(previewSection)
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -95),
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         
-        previewSection.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+        previewSection.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -90),
         previewSection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
         previewSection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         
@@ -213,9 +218,11 @@ class MovieCell: UICollectionViewCell {
         let movieImage = UIImageView()
         movieImage.image = #imageLiteral(resourceName: "movie_2")
         movieImage.clipsToBounds = true
-        movieImage.layer.cornerRadius = 0.5
-        movieImage.layer.masksToBounds = true
+        movieImage.layer.masksToBounds = false
         movieImage.contentMode = .scaleAspectFill
+        movieImage.layer.borderWidth = 1
+        movieImage.layer.borderColor = UIColor.black.cgColor
+        movieImage.layer.cornerRadius = movieImage.frame.height / 2
         movieImage.translatesAutoresizingMaskIntoConstraints = false
        return movieImage
     }()
@@ -224,10 +231,13 @@ class MovieCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.addSubview(movieImage)
-        movieImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        movieImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        movieImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        movieImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+        movieImage.topAnchor.constraint(equalTo: contentView.topAnchor),
+        movieImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        movieImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+        movieImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
     }
     
     required init?(coder: NSCoder) {

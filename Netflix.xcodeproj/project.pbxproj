@@ -12,7 +12,6 @@
 		ECFBA12F24D4DC79002019CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFBA12E24D4DC79002019CF /* SceneDelegate.swift */; };
 		ECFBA13124D4DC79002019CF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFBA13024D4DC79002019CF /* HomeViewController.swift */; };
 		ECFBA13624D4DC79002019CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECFBA13524D4DC79002019CF /* Assets.xcassets */; };
-		ECFBA13924D4DC79002019CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECFBA13724D4DC79002019CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +23,6 @@
 		ECFBA12E24D4DC79002019CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		ECFBA13024D4DC79002019CF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		ECFBA13524D4DC79002019CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		ECFBA13824D4DC79002019CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ECFBA13A24D4DC79002019CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +112,6 @@
 				EC028E4F24E4928F00B2A7DC /* Cells */,
 				EC9C716124E4BB7C00E6305A /* Custom Layouts */,
 				ECFBA13524D4DC79002019CF /* Assets.xcassets */,
-				ECFBA13724D4DC79002019CF /* LaunchScreen.storyboard */,
 				ECFBA13A24D4DC79002019CF /* Info.plist */,
 			);
 			path = Netflix;
@@ -180,7 +177,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFBA13924D4DC79002019CF /* LaunchScreen.storyboard in Resources */,
 				ECFBA13624D4DC79002019CF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,17 +237,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		ECFBA13724D4DC79002019CF /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ECFBA13824D4DC79002019CF /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		ECFBA13B24D4DC79002019CF /* Debug */ = {
@@ -374,7 +359,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5YHNN37F3T;
 				INFOPLIST_FILE = Netflix/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -392,7 +379,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5YHNN37F3T;
 				INFOPLIST_FILE = Netflix/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
