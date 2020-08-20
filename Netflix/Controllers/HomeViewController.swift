@@ -8,24 +8,42 @@
 
 import UIKit
 
-struct CustomData {
-    
-    var title: String
-    var image: UIImage
-}
-
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupLayout()
         navigationController()
         tabBarViewController()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        view.addSubview(backgroundImage)
+        view.addSubview(previewSection)
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            backgroundImage.widthAnchor.constraint(equalToConstant: 410),
+            backgroundImage.heightAnchor.constraint(equalToConstant: 500),
+            
+            previewSection.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: 20),
+            previewSection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            previewSection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: previewSection.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 0.5)
+        ])
     }
     
     // MARK: - NavigationViewController
@@ -35,26 +53,27 @@ class HomeViewController: UIViewController {
         let logoButton = UIButton(type: .system)
         logoButton.setImage(#imageLiteral(resourceName: "logo").withRenderingMode(.alwaysOriginal), for: .normal)
         logoButton.contentMode = .scaleAspectFit
-        logoButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         logoButton.translatesAutoresizingMaskIntoConstraints = false
+        logoButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        logoButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         let myListButton = UIButton(type: .system)
         myListButton.setTitle("My List", for: .normal)
         myListButton.setTitleColor(.white, for: .normal)
         myListButton.contentMode = .scaleAspectFit
-        myListButton.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
+        myListButton.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         
         let moviesButton = UIButton(type: .system)
         moviesButton.setTitle("Movies", for: .normal)
         moviesButton.setTitleColor(.white, for: .normal)
         moviesButton.contentMode = .scaleAspectFit
-        moviesButton.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
+        moviesButton.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         
         let tvShowsButton = UIButton(type: .system)
         tvShowsButton.setTitle("Tv Shows", for: .normal)
         tvShowsButton.setTitleColor(.white, for: .normal)
         tvShowsButton.contentMode = .scaleAspectFit
-        tvShowsButton.frame = CGRect(x: 0, y: 0, width: 30, height: 50)
+        tvShowsButton.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.isTranslucent = true
@@ -62,70 +81,9 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: logoButton)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: myListButton), UIBarButtonItem(customView: moviesButton), UIBarButtonItem(customView: tvShowsButton)]
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: myListButton),
+                                              UIBarButtonItem(customView: moviesButton), UIBarButtonItem(customView: tvShowsButton)]
     }
-    
-    // MARK: - Title Screen
-    
-    let imageView: UIImageView = {
-        
-        let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "movie_16")
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-       return imageView
-    }()
-    
-    // MARK: - Sections
-    
-    let previewSection: UILabel = {
-        
-        let preview = UILabel()
-        preview.text = "  Previews"
-        preview.textColor = .white
-        preview.font = UIFont.boldSystemFont(ofSize: 20.0)
-        preview.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
-        preview.translatesAutoresizingMaskIntoConstraints = false
-       return preview
-    }()
-    
-    // MARK: - MoviesDictionary
-    
-    let data = [ CustomData(title: "movie_1", image: #imageLiteral(resourceName: "movie_1")),
-                 CustomData(title: "movie_2", image: #imageLiteral(resourceName: "movie_2")),
-                 CustomData(title: "movie_3", image: #imageLiteral(resourceName: "movie_3")),
-                 CustomData(title: "movie_4", image: #imageLiteral(resourceName: "movie_7")),
-                 CustomData(title: "movie_5", image: #imageLiteral(resourceName: "movie_18")),
-                 CustomData(title: "movie_6", image: #imageLiteral(resourceName: "movie_22")),
-                 CustomData(title: "movie_7", image: #imageLiteral(resourceName: "movie_20")),
-                 CustomData(title: "movie_8", image: #imageLiteral(resourceName: "movie_16")),
-                 CustomData(title: "movie_9", image: #imageLiteral(resourceName: "movie_15")),
-                 CustomData(title: "movie_10", image: #imageLiteral(resourceName: "movie_12")),
-                 CustomData(title: "movie_12", image: #imageLiteral(resourceName: "movie_19")),
-                 CustomData(title: "movie_13", image: #imageLiteral(resourceName: "movie_21")),
-                 CustomData(title: "movie_14", image: #imageLiteral(resourceName: "movie_8")),
-                 CustomData(title: "movie_16", image: #imageLiteral(resourceName: "movie_4")),
-                 CustomData(title: "movie_18", image: #imageLiteral(resourceName: "movie_14")),
-                 CustomData(title: "movie_19", image: #imageLiteral(resourceName: "movie_15")),
-                 CustomData(title: "movie_21", image: #imageLiteral(resourceName: "movie_18")),
-                 CustomData(title: "movie_23", image: #imageLiteral(resourceName: "movie_17")),
-    ]
-    
-    // MARK: - UICollectionViewController
-    
-    let collectionView: UICollectionView = {
-       
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.scrollDirection = .horizontal
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(MovieCell.self, forCellWithReuseIdentifier: "MovieCell")
-        return collectionView
-    }()
     
     // MARK: - TabBarViewController
     
@@ -158,39 +116,50 @@ class HomeViewController: UIViewController {
         view.addSubview(tabBar.view)
     }
     
-    // MARK: - Custom Layout Controller
+    // MARK: - BackgroundImage
     
-    func setupLayout() {
+    let backgroundImage: UIImageView = {
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "1")
+        backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        return backgroundImage
+    }()
+    
+    // MARK: - Sections
+    
+    let previewSection: UILabel = {
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = .red
+        let preview = UILabel()
+        preview.text = "  Previews"
+        preview.textColor = .white
+        preview.font = UIFont.boldSystemFont(ofSize: 20.0)
+        preview.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
+        preview.translatesAutoresizingMaskIntoConstraints = false
+       return preview
+    }()
+    
+    // MARK: - MoviesDictionary
+    
+    let data = [CustomData(image: #imageLiteral(resourceName: "movie_2")), CustomData(image: #imageLiteral(resourceName: "movie_1")), CustomData(image: #imageLiteral(resourceName: "movie_3")), CustomData(image: #imageLiteral(resourceName: "movie_19")), CustomData(image: #imageLiteral(resourceName: "movie_21")), CustomData(image: #imageLiteral(resourceName: "movie_18")), CustomData(image: #imageLiteral(resourceName: "movie_20")), CustomData(image: #imageLiteral(resourceName: "movie_14")), CustomData(image: #imageLiteral(resourceName: "movie_16")), CustomData(image: #imageLiteral(resourceName: "1"))]
+    
+    // MARK: - UICollectionViewController
+    
+    let collectionView: UICollectionView = {
+       
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        view.addSubview(imageView)
-        view.addSubview(previewSection)
-        view.addSubview(collectionView)
-        
-        NSLayoutConstraint.activate([
-        imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -95),
-        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        
-        previewSection.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -90),
-        previewSection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        previewSection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        
-        collectionView.topAnchor.constraint(equalTo: previewSection.bottomAnchor, constant: 20),
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 0.5)
-        ])
-    }
-}
-
-extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(MovieCell.self, forCellWithReuseIdentifier: "MovieCell")
+        return collectionView
+    }()
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 2.5, height: collectionView.frame.width / 2)
+        return CGSize(width: collectionView.frame.height - 20, height: collectionView.frame.height - 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -201,46 +170,5 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCell
         cell.data = self.data[indexPath.row]
         return cell
-    }
-}
-
-class MovieCell: UICollectionViewCell {
-    
-    var data: CustomData? {
-        didSet {
-            guard let data = data else { return }
-            movieImage.image = data.image
-        }
-    }
-    
-    let movieImage: UIImageView = {
-        
-        let movieImage = UIImageView()
-        movieImage.image = #imageLiteral(resourceName: "movie_2")
-        movieImage.clipsToBounds = true
-        movieImage.layer.masksToBounds = false
-        movieImage.contentMode = .scaleAspectFill
-        movieImage.layer.borderWidth = 1
-        movieImage.layer.borderColor = UIColor.black.cgColor
-        movieImage.layer.cornerRadius = movieImage.frame.height / 2
-        movieImage.translatesAutoresizingMaskIntoConstraints = false
-       return movieImage
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        contentView.addSubview(movieImage)
-        
-        NSLayoutConstraint.activate([
-        movieImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-        movieImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        movieImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-        movieImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
