@@ -32,14 +32,14 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            backgroundImage.widthAnchor.constraint(equalToConstant: 410),
-            backgroundImage.heightAnchor.constraint(equalToConstant: 500),
+            backgroundImage.widthAnchor.constraint(equalToConstant: 400),
+            backgroundImage.heightAnchor.constraint(equalToConstant: 550),
             
             previewSection.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: 20),
             previewSection.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             previewSection.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            collectionView.topAnchor.constraint(equalTo: previewSection.bottomAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: previewSection.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.heightAnchor.constraint(equalTo: collectionView.widthAnchor, multiplier: 0.5)
@@ -143,6 +143,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     let data = [CustomData(image: #imageLiteral(resourceName: "movie_2")), CustomData(image: #imageLiteral(resourceName: "movie_1")), CustomData(image: #imageLiteral(resourceName: "movie_3")), CustomData(image: #imageLiteral(resourceName: "movie_19")), CustomData(image: #imageLiteral(resourceName: "movie_21")), CustomData(image: #imageLiteral(resourceName: "movie_18")), CustomData(image: #imageLiteral(resourceName: "movie_20")), CustomData(image: #imageLiteral(resourceName: "movie_14")), CustomData(image: #imageLiteral(resourceName: "movie_16")), CustomData(image: #imageLiteral(resourceName: "1"))]
     
+    let movie = ["movie_1", "movie_2", "movie_3", "movie_4", "movie_5", "movie_6", "movie_7", "movie_8", "movie_9", "movie_10",]
+    
     // MARK: - UICollectionViewController
     
     let collectionView: UICollectionView = {
@@ -163,12 +165,19 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return movie.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCell
         cell.data = self.data[indexPath.row]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+ 
+        let movieDescription = MovieDescription()
+        movieDescription.movie = data[indexPath.row]
+        self.navigationController?.pushViewController(movieDescription, animated: true)
     }
 }
