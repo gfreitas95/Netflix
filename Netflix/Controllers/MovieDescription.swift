@@ -14,10 +14,6 @@ class MovieDescription : UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .black
-        
-//        movieDescription.text = movie
-//        movieDescription.title = title
-//        movieImage.image = UIImage(named: movie)
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,7 +66,7 @@ class MovieDescription : UIViewController {
     
     let movieTitle: UILabel = {
         let movieTitle = UILabel()
-        movieTitle.text = "O IRLANDÊS"
+        movieTitle.text = "SINOPSE"
         movieTitle.textColor = .red
         movieTitle.textAlignment = .left
         movieTitle.font = UIFont.boldSystemFont(ofSize: 40.0)

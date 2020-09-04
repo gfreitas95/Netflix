@@ -143,8 +143,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     let data = [CustomData(image: #imageLiteral(resourceName: "movie_2")), CustomData(image: #imageLiteral(resourceName: "movie_1")), CustomData(image: #imageLiteral(resourceName: "movie_3")), CustomData(image: #imageLiteral(resourceName: "movie_19")), CustomData(image: #imageLiteral(resourceName: "movie_21")), CustomData(image: #imageLiteral(resourceName: "movie_18")), CustomData(image: #imageLiteral(resourceName: "movie_20")), CustomData(image: #imageLiteral(resourceName: "movie_14")), CustomData(image: #imageLiteral(resourceName: "movie_16")), CustomData(image: #imageLiteral(resourceName: "1"))]
     
-    let movie = ["movie_1", "movie_2", "movie_3", "movie_4", "movie_5", "movie_6", "movie_7", "movie_8", "movie_9", "movie_10",]
-    
     // MARK: - UICollectionViewController
     
     let collectionView: UICollectionView = {
@@ -165,7 +163,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movie.count
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
